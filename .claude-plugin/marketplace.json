@@ -1,0 +1,14 @@
+{
+  "name": "revido",
+  "description": "Revido skills for coding agents",
+  "owner": {
+    "name": "Revido"
+  },
+  "plugins": [
+    {
+      "name": "revido-skills",
+      "source": "./",
+      "description": "Revido's shared skills for coding agents"
+    }
+  ]
+}

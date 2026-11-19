@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "monitor-plan",
+  "description": "Machine-readable monitoring plan emitted by the recommend-monitors skill. Maps onto the Revido portal's project_monitoring and project_monitors rows.",
+  "type": "object",
+  "required": ["schema_version", "project", "monitors"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "const": "1" },
+    "project": {
+      "type": "object",
+      "required": ["client", "name", "code", "plan"],
+      "additionalProperties": false,
+      "properties": {
+        "client": { "type": "string" },
+        "name": { "type": "string" },
+        "code": { "type": "string", "description": "Project code; used as the StatusCake tag" },
+        "hosting": { "type": "array", "items": { "type": "string" } },
+        "plan": { "enum": ["standard", "priority", "premium", "24x7", "unknown"] }
+      }
+    },
+    "monitors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "type", "target", "catches", "priority", "min_plan", "contact_group"],
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string", "description": "CLIENT – Project – Check" },
+          "type": { "enum": ["uptime", "health", "content", "ssl", "domain", "error_rate", "heartbeat", "flow"] },
+          "target": { "type": "string", "description": "URL, host, job name or test file" },
+          "catches": { "type": "string" },
+          "priority": { "enum": ["P0", "P1", "P2", "P3"] },
+          "min_plan": { "enum": ["standard", "priority", "premium", "24x7"] },
+          "contact_group": { "enum": ["p0", "standard"] },
+          "interval_seconds": { "type": "integer", "minimum": 30 },
+          "keyword": { "type": "string", "description": "Expected or forbidden text for content checks" },
+          "heartbeat_window_minutes": { "type": "integer", "minimum": 1 },
+          "evidence": { "type": "string", "description": "File path or URL that justified this monitor" }
+        }
+      }
+    },
+    "dev_tasks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["title", "why"],
+        "additionalProperties": false,
+        "properties": {
+          "title": { "type": "string" },
+          "why": { "type": "string" },
+          "blocks": { "type": "array", "items": { "type": "string" }, "description": "Names of monitors this task unblocks" }
+        }
+      }
+    },
+    "manual_steps": { "type": "array", "items": { "type": "string" } },
+    "gaps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["item"],
+        "additionalProperties": false,
+        "properties": {
+          "item": { "type": "string" },
+          "upsell_plan": { "enum": ["standard", "priority", "premium", "24x7"] }
+        }
+      }
+    },
+    "readiness": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["item", "done"],
+        "additionalProperties": false,
+        "properties": { "item": { "type": "string" }, "done": { "type": "boolean" } }
+      }
+    }
+  }
+}

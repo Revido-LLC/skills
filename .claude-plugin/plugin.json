@@ -1,0 +1,9 @@
+{
+  "name": "revido-skills",
+  "description": "Revido's shared skills for coding agents: monitoring and priority recommendations for the apps we build",
+  "version": "0.1.0",
+  "author": {
+    "name": "Revido"
+  },
+  "homepage": "https://revido.co"
+}
