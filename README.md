@@ -30,7 +30,7 @@ Clone the repo, then:
 Claude Code users can instead install it as a plugin (auto-updates):
 
 ```bash
-claude plugin marketplace add <owner>/skills
+claude plugin marketplace add Revido-LLC/skills
 claude plugin install revido-skills@revido
 ```
 
